@@ -180,9 +180,10 @@ with app.app_context():
         db.session.add(Media(filename="control_room.jpg", alt_text="Контрольная комната", usage="carousel"))
         db.session.commit()
 
-if __ __name__ == '__main__':
+if __name__ == '__main__':
     # Локальный запуск
     app.run(debug=True)
 else:
     # Запуск на Render (или другом хостинге)
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
