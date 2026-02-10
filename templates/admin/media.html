@@ -1,0 +1,53 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<h2>Управление изображениями</h2>
+<p>Загружайте изображения для разных разделов сайта.</p>
+
+<form method="POST" enctype="multipart/form-data" style="background: #151515; padding: 20px; border-radius: 12px; margin: 25px 0;">
+    <div style="margin-bottom: 15px;">
+        <label>Файл изображения (jpg, png, webp)</label><br>
+        <input type="file" name="file" accept="image/*" required style="color: white;">
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Где будет использоваться:</label><br>
+        <select name="usage" style="width: 100%; padding: 8px; background: #222; color: white; border: 1px solid #444;">
+            <option value="hero">Фон главной страницы (герой)</option>
+            <option value="carousel">Карусель (Главная / О студии)</option>
+            <option value="about">Страница «О студии»</option>
+            <option value="services">Услуги</option>
+            <option value="other">Другое</option>
+        </select>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Описание (alt text, для SEO)</label>
+        <input type="text" name="alt_text" placeholder="Например: Основная студия записи" style="width: 100%; padding: 8px; background: #222; color: white; border: 1px solid #444;">
+    </div>
+    <button type="submit" style="padding: 10px 20px; background: white; color: black; border: none; border-radius: 6px; font-weight: bold;">Загрузить</button>
+</form>
+
+<h3>Все изображения ({{ media_items|length }})</h3>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; margin-top: 20px;">
+    {% for item in media_items %}
+    <div style="background: #1a1a1a; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+        <div style="height: 160px; overflow: hidden;">
+            <img src="{{ item.url }}" alt="{{ item.alt_text or 'Изображение' }}" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="padding: 12px; font-size: 0.85rem;">
+            <div><strong>{{ item.usage }}</strong></div>
+            <div style="opacity: 0.7; margin: 4px 0;">{{ item.alt_text or '—' }}</div>
+            <form method="POST" action="{{ url_for('delete_media', media_id=item.id) }}" style="margin-top: 10px;">
+                <button type="submit"
+                        onclick="return confirm('Удалить изображение?')"
+                        style="background: #c00; color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">
+                    Удалить
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<p style="margin-top: 30px; font-size: 0.9rem; opacity: 0.7;">
+    💡 Чтобы использовать изображение на сайте, укажите правильный тип использования при загрузке.
+</p>
+{% endblock %}

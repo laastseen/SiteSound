@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block title %}Услуги - Multi-Sound Studio{% endblock %}
+
+{% block content %}
+<header>
+    <div class="container">
+        <nav>
+            <a href="/" class="logo">Multi-Sound</a>
+            <div class="nav-links">
+                <a href="/">Главная</a>
+                <a href="/services">Услуги</a>
+                <a href="/about">О студии</a>
+                <a href="/#booking">Запись</a>
+                <a href="/#contact">Контакты</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" style="height: 60vh; background: linear-gradient(135deg, #000, #1a1a1a);">
+    <div class="container">
+        <div class="hero-content" style="max-width: 800px;">
+            <h1>Наши Профессиональные Услуги</h1>
+            <p>Полный цикл работы со звуком - от первой ноты до финального релиза на всех платформах.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Full Services Page -->
+<section class="section" style="background: linear-gradient(to bottom, #000, #0a0a0a);">
+    <div class="container">
+
+        <!-- Звукозапись -->
+        <div class="service-full" style="margin-bottom: 100px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <div class="service-icon" style="font-size: 4rem; margin-bottom: 20px; color: #fff;">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h2>Профессиональная Звукозапись</h2>
+                    <p style="font-size: 1.1rem; opacity: 0.9; margin: 20px 0;">
+                        Запись вокала, инструментов, оркестров и подкастов в акустически подготовленном пространстве с использованием премиального оборудования мирового уровня.
+                    </p>
+                    <h3 style="margin: 30px 0 15px; color: #fff;">Что мы предлагаем:</h3>
+                    <ul style="padding-left: 20px; margin-bottom: 25px;">
+                        <li style="margin-bottom: 10px;">Работа с сертифицированным звукорежиссёром с 10+ лет опыта</li>
+                        <li style="margin-bottom: 10px;">Микрофоны: Neumann U87, AKG C414, Shure SM7B, Rode NT1</li>
+                        <li style="margin-bottom: 10px;">Аудиоинтерфейсы: RME Fireface UFX+, Universal Audio Apollo x8</li>
+                        <li style="margin-bottom: 10px;">Акустическая обработка Vicoustic и GIK Acoustics</li>
+                        <li>Гибкий график: с 10:00 до 22:00, без выходных</li>
+                    </ul>
+                    <h3 style="margin: 25px 0 15px; color: #fff;">Технические возможности:</h3>
+                    <ul style="padding-left: 20px;">
+                        <li>Многоканальная запись (до 64 дорожек одновременно)</li>
+                        <li>Поддержка форматов: WAV (24-bit/96kHz), AIFF, MP3</li>
+                        <li>Синхронизация с Pro Tools, Logic Pro, Cubase</li>
+                    </ul>
+                    <div style="margin-top: 30px; font-weight: 600; font-size: 1.2rem;">
+                        Стоимость: от <span style="color: #fff;">1500 ₽/час</span>
+                    </div>
+                </div>
+                <div style="flex: 1; min-width: 300px; display: flex; justify-content: center;">
+                    <img src="https://pop-music.ru/upload/medialibrary/e29/e2931243528fb96dd8320aa78604d5f2.jpeg"
+                         alt="Звукозапись в студии"
+                         style="border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 100%;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Сведение -->
+        <div class="service-full" style="margin-bottom: 100px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px; display: flex; justify-content: center; order: 2;">
+                    <img src="https://avatars.mds.yandex.net/i?id=22945d457150bf6e4241eaf22a32eb0e_l-5087276-images-thumbs&n=13"
+                         alt="Процесс сведения"
+                         style="border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 100%;">
+                </div>
+                <div style="flex: 1; min-width: 300px; order: 1;">
+                    <div class="service-icon" style="font-size: 4rem; margin-bottom: 20px; color: #fff;">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h2>Профессиональное Сведение (Mixing)</h2>
+                    <p style="font-size: 1.1rem; opacity: 0.9; margin: 20px 0;">
+                        Сведение - это искусство превращения множества отдельных дорожек в цельное, сбалансированное музыкальное произведение.
+                    </p>
+                    <h3 style="margin: 30px 0 15px; color: #fff;">Наш подход:</h3>
+                    <ul style="padding-left: 20px; margin-bottom: 25px;">
+                        <li>Индивидуальный подход к каждому жанру: поп, рок, хип-хоп, электроника, джаз</li>
+                        <li>Использование аналоговых эмуляций и плагинов премиум-класса</li>
+                        <li>Ручная автоматизация параметров для живого звучания</li>
+                        <li>Проверка микса на 5 разных системах: мониторы, наушники, телефон, авто, Bluetooth</li>
+                    </ul>
+                    <h3 style="margin: 25px 0 15px; color: #fff;">Используемое ПО и плагины:</h3>
+                    <ul style="padding-left: 20px;">
+                        <li>Pro Tools HD, Logic Pro X</li>
+                        <li>Universal Audio UAD, Waves Complete, FabFilter, iZotope</li>
+                        <li>SSL, Neve, API эмуляции</li>
+                    </ul>
+                    <div style="margin-top: 30px; font-weight: 600; font-size: 1.2rem;">
+                        Срок: от 1 дня | Стоимость: от <span style="color: #fff;">3000 ₽/трек</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Мастеринг -->
+        <div class="service-full" style="margin-bottom: 80px;">
+            <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <div class="service-icon" style="font-size: 4rem; margin-bottom: 20px; color: #fff;">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <h2>Профессиональный Мастеринг (Mastering)</h2>
+                    <p style="font-size: 1.1rem; opacity: 0.9; margin: 20px 0;">
+                        Финальная стадия подготовки трека к релизу. Мы обеспечиваем максимальное качество звучания на всех устройствах и платформах.
+                    </p>
+                    <h3 style="margin: 30px 0 15px; color: #fff;">Что входит в мастеринг:</h3>
+                    <ul style="padding-left: 20px; margin-bottom: 25px;">
+                        <li>Тонкая эквализация для баланса частот</li>
+                        <li>Стерео-расширение и контроль моно-совместимости</li>
+                        <li>Лимитирование под стандарты Spotify (-14 LUFS), Apple Music, YouTube</li>
+                        <li>Создание ISRC кодов и метаданных</li>
+                        <li>Подготовка файлов для всех форматов: цифровой релиз, CD, винил</li>
+                    </ul>
+                    <h3 style="margin: 25px 0 15px; color: #fff;">Наши стандарты:</h3>
+                    <ul style="padding-left: 20px;">
+                        <li>Apple Digital Masters Certified</li>
+                        <li>Spotify Loudness Normalization Ready</li>
+                        <li>CD Red Book Standard</li>
+                    </ul>
+                    <div style="margin-top: 30px; font-weight: 600; font-size: 1.2rem;">
+                        Срок: от 1 дня | Стоимость: от <span style="color: #fff;">2000 ₽/трек</span>
+                    </div>
+                </div>
+                <div style="flex: 1; min-width: 300px; display: flex; justify-content: center;">
+                    <img src="https://avatars.mds.yandex.net/i?id=5acba2c3d7be50d2bc91b92ba7f320d9_l-12714748-images-thumbs&n=13"
+                         alt="Мастеринг-инженер"
+                         style="border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 100%;">
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div style="text-align: center; margin-top: 60px; padding: 40px; background: rgba(255,255,255,0.05); border-radius: 20px;">
+            <h3 style="font-size: 2rem; margin-bottom: 20px;">Готовы начать работу над своим проектом?</h3>
+            <p style="opacity: 0.8; margin-bottom: 30px;">Оставьте заявку, и мы свяжемся с вами в течение часа.</p>
+            <a href="/#booking" class="btn" style="padding: 14px 40px; font-size: 1.1rem;">Забронировать студию</a>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <a href="/" class="logo">Multi-Sound</a>
+            <p>Профессиональная звукозапись в Вологде с 2015 года</p>
+        </div>
+        <div class="copyright">&copy; 2026 Multi-Sound Studio. Все права защищены.</div>
+    </div>
+</footer>
+
+<style>
+.service-full h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+.service-full h3 {
+    font-size: 1.4rem;
+}
+@media (max-width: 768px) {
+    .service-full h2 { font-size: 1.8rem; }
+    .service-full h3 { font-size: 1.2rem; }
+    .hero h1 { font-size: 2.4rem; }
+}
+</style>
+{% endblock %}

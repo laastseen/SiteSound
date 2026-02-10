@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+    <div class="container">
+        <nav>
+            <a href="/" class="logo">Multi-Sound</a>
+            <div class="nav-links">
+                <a href="/">Главная</a>
+                <a href="/services">Услуги</a>
+                <a href="/about">О студии</a>
+                <a href="/#booking">Запись</a>
+                <a href="/#contact">Контакты</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+
+<section id="home" class="hero"
+    {% if hero_image %}
+        style="background-image: url('{{ hero_image.url }}'); background-size: cover; background-position: center; position: relative;"
+    {% endif %}>
+    <div class="container">
+        <div class="hero-content">
+            <h1>Профессиональная звукозапись в самом сердце Вологды</h1>
+            <p>Multi-Sound Studio - ваш надежный партнер в создании качественного звука.</p>
+            <div class="hero-buttons">
+                <a href="/#booking" class="btn">Забронировать студию</a>
+                <a href="/services" class="btn btn-outline">Наши услуги</a>
+            </div>
+        </div>
+    </div>
+    {% if hero_image %}
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6);"></div>
+    {% endif %}
+</section>
+
+<section id="services" class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Наши Услуги</h2>
+            <p>Полный спектр профессиональных услуг по работе со звуком</p>
+        </div>
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card">
+                <div class="service-icon"><i class="fas {{ service.icon }}"></i></div>
+                <h3>{{ service.title }}</h3>
+                <p>{{ service.short_desc }}</p>
+                <a href="/services" class="btn-detail">Подробнее</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="studio" class="section studio">
+    <div class="container">
+        <div class="studio-content">
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    {% for img in carousel_images %}
+                    <div class="carousel-slide" style="background-image: url('{{ img.url }}');">
+                        <span>{{ img.alt_text or 'Студия' }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-nav carousel-prev" onclick="prevSlide()">&#10094;</button>
+                <button class="carousel-nav carousel-next" onclick="nextSlide()">&#10095;</button>
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+            <div class="studio-text">
+                <h2>Наша Студия</h2>
+                <p>Multi-Sound Studio расположена в центре Вологды и оснащена современным оборудованием мирового уровня.</p>
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> Акустически подготовленные помещения</li>
+                    <li><i class="fas fa-check-circle"></i> Профессиональное оборудование Neumann, RME, Universal Audio</li>
+                    <li><i class="fas fa-check-circle"></i> Опытные звукорежиссеры и инженеры</li>
+                </ul>
+                <a href="/about" class="btn-detail">Подробнее о студии</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="booking" class="booking-section">
+    <div class="container">
+        <div class="booking-container">
+            <h2>Забронировать студию</h2>
+            <form method="POST" action="{{ url_for('booking') }}" class="booking-form">
+                {% include 'booking_form_fields.html' %}
+                <button type="submit">Забронировать студию</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="section contact">
+    <div class="container">
+        <div class="section-title">
+            <h2>Свяжитесь с Нами</h2>
+            <p>Готовы начать работу над вашим проектом? Свяжитесь с нами прямо сейчас!</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Информация</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>г. Вологда, ул. Первомайская, 33 (цокольный этаж)</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (931) 505-03-50</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@multi-sound.ru</span>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form method="POST" action="{{ url_for('contact') }}">
+                    <input type="text" name="name" placeholder="Ваше имя" required>
+                    <input type="email" name="email" placeholder="Ваш email" required>
+                    <input type="tel" name="phone" placeholder="Ваш телефон">
+                    <textarea name="message" placeholder="Сообщение" required></textarea>
+                    <button type="submit">Отправить сообщение</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <a href="/" class="logo">Multi-Sound</a>
+            <p>Профессиональная звукозапись в Вологде</p>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 Multi-Sound Studio. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}

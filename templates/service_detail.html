@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ service.title }} - Multi-Sound Studio{% endblock %}
+
+{% block content %}
+<header>
+    <div class="container">
+        <nav>
+            <a href="/" class="logo">Multi-Sound</a>
+            <div class="nav-links">
+                <a href="/">Главная</a>
+                <a href="/services">Услуги</a>
+                <a href="/about">О студии</a>
+                <a href="/#booking">Запись</a>
+                <a href="/#contact">Контакты</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<section class="section" style="background: linear-gradient(135deg, #000, #111); padding: 80px 0;">
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto; background: #1a1a1a; padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);">
+            <h2>{{ service.title }}</h2>
+            <div style="margin-top: 20px;">
+                {{ service.long_desc | safe }}
+            </div>
+            <div style="margin-top: 30px; text-align: center;">
+                <a href="/uslugi" class="btn" style="margin-right: 15px;">Все услуги</a>
+                <a href="/" class="btn btn-outline">На главную</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <a href="/" class="logo">Multi-Sound</a>
+            <p>Профессиональная звукозапись в Вологде с 2015 года</p>
+        </div>
+        <div class="copyright">&copy; 2026 Multi-Sound Studio</div>
+    </div>
+</footer>
+{% endblock %}

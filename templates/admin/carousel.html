@@ -1,0 +1,21 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<h2>Управление каруселью</h2>
+<form method="POST">
+    <div><input type="url" name="url" placeholder="URL изображения" required></div>
+    <div><input type="text" name="caption" placeholder="Подпись" required></div>
+    <button type="submit">Добавить фото</button>
+</form>
+
+<h3>Текущие изображения</h3>
+<table>
+    <tr><th>ID</th><th>Изображение</th><th>Подпись</th></tr>
+    {% for img in images %}
+    <tr>
+        <td>{{ img.id }}</td>
+        <td><img src="{{ img.url }}" width="100"></td>
+        <td>{{ img.caption }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

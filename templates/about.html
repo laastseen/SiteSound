@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% block title %}О студии - Multi-Sound Studio{% endblock %}
+
+{% block content %}
+<header>
+    <div class="container">
+        <nav>
+            <a href="/" class="logo">Multi-Sound</a>
+            <div class="nav-links">
+                <a href="/">Главная</a>
+                <a href="/services">Услуги</a>
+                <a href="/about">О студии</a>
+                <a href="/#booking">Запись</a>
+                <a href="/#contact">Контакты</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<section class="hero" style="height: 60vh; background: linear-gradient(135deg, var(--primary), var(--secondary));">
+    <div class="container">
+        <div class="hero-content" style="max-width: 800px;">
+            <h1>Multi-Sound Studio</h1>
+            <p>Профессиональная звукозапись в самом сердце Вологды.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="background: linear-gradient(to bottom, var(--primary), #0a0a0a);">
+    <div class="container">
+
+        <!-- Carousel -->
+        {% if carousel_images %}
+        <div class="studio-carousel-section" style="margin-bottom: 70px;">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">
+                <span style="color: var(--highlight);">Интерьер студии</span>
+            </h2>
+            <div class="carousel-container" style="height: 450px; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);">
+                <div class="carousel-track" id="aboutCarouselTrack">
+                    {% for img in carousel_images %}
+                    <div class="carousel-slide" style="background-image: url('{{ img.url }}');">
+                        <div style="position: absolute; bottom: 25px; left: 30px; color: white; font-weight: 600; font-size: 1.3rem; text-shadow: 0 2px 5px rgba(0,0,0,0.8);">
+                            {{ img.alt_text or 'Студия' }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-nav carousel-prev" onclick="prevAboutSlide()">&#10094;</button>
+                <button class="carousel-nav carousel-next" onclick="nextAboutSlide()">&#10095;</button>
+                <div class="carousel-dots" id="aboutCarouselDots"></div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Main Content -->
+        <div class="about-text-content" style="max-width: 900px; margin: 0 auto; color: rgba(255, 255, 255, 0.9);">
+            <p style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 40px;">
+                Multi-Sound Studio была основана в 2015 году с целью предоставить музыкантам, авторам и подкастерам доступ к профессиональному качеству звукозаписи без необходимости выезда в крупные мегаполисы.
+            </p>
+
+            <div class="about-block" style="margin-bottom: 50px;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--highlight);">Расположение</h3>
+                <p>г. Вологда, ул. Первомайская, 33 - в историческом центре города, в шаговой доступности от парковки и общественного транспорта.</p>
+            </div>
+
+            <div class="about-block" style="margin-bottom: 50px;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--highlight);">Помещения</h3>
+                <ul style="padding-left: 24px; line-height: 1.8;">
+                    <li>Основная студия (25 м²) - для записи вокала, акустических инструментов и небольших ансамблей</li>
+                    <li>Контрольная комната (15 м²) - полностью акустически обработанное пространство с мониторами Genelec</li>
+                    <li>Зона отдыха - комфортная зона с кофе, чаем и Wi-Fi для артистов во время перерывов</li>
+                </ul>
+            </div>
+
+            <div class="about-block" style="margin-bottom: 50px;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--highlight);">Оборудование</h3>
+                <ul style="padding-left: 24px; line-height: 1.8;">
+                    <li><strong>Микрофоны:</strong> Neumann U87, AKG C414, Shure SM7B, Rode NT1</li>
+                    <li><strong>Аудиоинтерфейсы:</strong> RME Fireface UFX+, Universal Audio Apollo x8</li>
+                    <li><strong>Мониторы:</strong> Genelec 8050B, Yamaha HS8</li>
+                    <li><strong>Препроцессоры:</strong> Universal Audio Twinfinity, Grace Design m101</li>
+                </ul>
+            </div>
+
+            <div class="about-block" style="margin-bottom: 50px;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--highlight);">Акустика</h3>
+                <p style="margin-bottom: 15px;">
+                    Студия спроектирована совместно с акустическими инженерами из Москвы. Применены решения от Vicoustic и GIK Acoustics:
+                </p>
+                <ul style="padding-left: 24px; line-height: 1.8;">
+                    <li>Басовые ловушки в углах</li>
+                    <li>Диффузоры на задней стене</li>
+                    <li>Панели поглощения на первых точках отражения</li>
+                    <li>Плавающий пол и звукоизолированные стены</li>
+                </ul>
+            </div>
+
+            <div class="about-block">
+                <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--highlight);">Команда</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                    <div style="background: rgba(255, 255, 255, 0.04); padding: 25px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08);">
+                        <h4 style="color: var(--highlight); margin-bottom: 12px; font-size: 1.25rem;">Александр Иванов</h4>
+                        <p style="opacity: 0.85; line-height: 1.6;">Главный звукорежиссёр, 12 лет опыта.</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.04); padding: 25px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08);">
+                        <h4 style="color: var(--highlight); margin-bottom: 12px; font-size: 1.25rem;">Мария Петрова</h4>
+                        <p style="opacity: 0.85; line-height: 1.6;">Инженер по сведению. Специализация - поп и электроника.</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.04); padding: 25px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08);">
+                        <h4 style="color: var(--highlight); margin-bottom: 12px; font-size: 1.25rem;">Дмитрий Соколов</h4>
+                        <p style="opacity: 0.85; line-height: 1.6;">Технический специалист и мастеринг-инженер. </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <a href="/" class="logo">Multi-Sound</a>
+            <p>Профессиональная звукозапись в Вологде с 2015 года</p>
+        </div>
+        <div class="copyright">&copy; 2026 Multi-Sound Studio. Все права защищены.</div>
+    </div>
+</footer>
+
+<script>
+let currentAboutSlide = 0;
+const aboutTrack = document.getElementById('aboutCarouselTrack');
+const aboutDotsContainer = document.getElementById('aboutCarouselDots');
+
+if (aboutTrack && aboutDotsContainer) {
+    const slides = aboutTrack.querySelectorAll('.carousel-slide');
+    const total = slides.length;
+
+    for (let i = 0; i < total; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'carousel-dot';
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => showAboutSlide(i));
+        aboutDotsContainer.appendChild(dot);
+    }
+
+    const dots = aboutDotsContainer.querySelectorAll('.carousel-dot');
+
+    function showAboutSlide(index) {
+        if (index >= total) index = 0;
+        if (index < 0) index = total - 1;
+        aboutTrack.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+        currentAboutSlide = index;
+    }
+
+    function nextAboutSlide() { showAboutSlide(currentAboutSlide + 1); }
+    function prevAboutSlide() { showAboutSlide(currentAboutSlide - 1); }
+
+    window.prevAboutSlide = prevAboutSlide;
+    window.nextAboutSlide = nextAboutSlide;
+
+    setInterval(nextAboutSlide, 6000);
+}
+</script>
+
+<style>
+.carousel-container {
+    position: relative;
+    height: 450px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+.carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+.carousel-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+.carousel-nav:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+.carousel-prev { left: 20px; }
+.carousel-next { right: 20px; }
+.carousel-dots {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+.carousel-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+.carousel-dot.active {
+    background: white;
+}
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.4rem; }
+    .carousel-container { height: 300px; }
+}
+</style>
+{% endblock %}

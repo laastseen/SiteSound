@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Услуги - Multi-Sound Studio{% endblock %}
+
+{% block content %}
+<header>
+    <div class="container">
+        <nav>
+            <a href="/" class="logo">Multi-Sound</a>
+            <div class="nav-links">
+                <a href="/">Главная</a>
+                <a href="/services">Услуги</a>
+                <a href="/about">О студии</a>
+                <a href="/#booking">Запись</a>
+                <a href="/#contact">Контакты</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<section class="section" style="background: linear-gradient(135deg, #000, #111);">
+    <div class="container">
+        <div class="section-title">
+            <h2>Наши Услуги</h2>
+            <p>Полный цикл работы со звуком - от идеи до релиза</p>
+        </div>
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card">
+                <div class="service-icon"><i class="fas {{ service.icon }}"></i></div>
+                <h3>{{ service.title }}</h3>
+                <p>{{ service.short_desc }}</p>
+                <a href="{{ url_for('service_detail', service_id=service.id) }}" class="btn-detail">Подробнее</a>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="/" class="btn" style="display: inline-block;">Вернуться на главную</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <a href="/" class="logo">Multi-Sound</a>
+            <p>Профессиональная звукозапись в Вологде с 2015 года</p>
+        </div>
+        <div class="copyright">&copy; 2026 Multi-Sound Studio</div>
+    </div>
+</footer>
+{% endblock %}

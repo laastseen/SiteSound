@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Админка — Multi-Sound</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .nav {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        .nav a:hover, .nav a.active {
+            background: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #111;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        th {
+            background: #222;
+            font-weight: 600;
+        }
+        form div {
+            margin: 12px 0;
+        }
+        input, textarea, select, button {
+            width: 100%;
+            padding: 10px;
+            background: #222;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        button {
+            background: #fff;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .back-to-site {
+            margin-top: 30px;
+            display: inline-block;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-to-site:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Админ-панель</h1>
+
+    <div class="nav">
+        <a href="{{ url_for('admin_dashboard') }}" class="{% if request.endpoint == 'admin_dashboard' %}active{% endif %}">Главная</a>
+        <a href="{{ url_for('admin_services') }}" class="{% if request.endpoint == 'admin_services' %}active{% endif %}">Услуги</a>
+        <a href="{{ url_for('admin_media') }}" class="{% if request.endpoint == 'admin_media' %}active{% endif %}">Медиа</a>
+        <a href="{{ url_for('admin_bookings') }}" class="{% if request.endpoint == 'admin_bookings' %}active{% endif %}">Записи</a>
+        <a href="{{ url_for('admin_contacts') }}" class="{% if request.endpoint == 'admin_contacts' %}active{% endif %}">Сообщения</a>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div style="background: #2a5c2a; padding: 12px; border-radius: 6px; margin-bottom: 20px;">
+                {% for msg in messages %}
+                    {{ msg }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% block admin_content %}{% endblock %}
+
+    <a href="/" class="back-to-site">← Вернуться на сайт</a>
+</body>
+</html>

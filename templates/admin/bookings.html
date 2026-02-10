@@ -1,0 +1,22 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<h2>Заявки на запись</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Имя</th><th>Email</th><th>Телефон</th><th>Дата</th><th>Время</th><th>Услуга</th><th>Сообщение</th><th>Дата заявки</th>
+    </tr>
+    {% for b in bookings %}
+    <tr>
+        <td>{{ b.id }}</td>
+        <td>{{ b.name }}</td>
+        <td>{{ b.email }}</td>
+        <td>{{ b.phone }}</td>
+        <td>{{ b.date.strftime('%d.%m.%Y') }}</td>
+        <td>{{ b.time }}</td>
+        <td>{{ b.service_type }}</td>
+        <td>{{ b.message or '-' }}</td>
+        <td>{{ b.created_at.strftime('%d.%m.%Y %H:%M') }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
