@@ -1,26 +1,39 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from config import Config
 from models import db, Service, Media, Booking, ContactMessage
 from datetime import datetime
 import os
 from werkzeug.utils import secure_filename
+from flasgger import Swagger
 
 app = Flask(__name__)
 app.config.from_object(Config)
-
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 db.init_app(app)
 
-# ---------------- Routes ----------------
+
+app.config['SWAGGER'] = {
+    'title': 'Studio API',
+    'uiversion': 3
+}
+swagger = Swagger(app, template={
+    "swagger": "2.0",
+    "info": {
+        "title": "Multi Sound Studio API",
+        "description": "Документация API для веб-приложения студии",
+        "version": "1.0.0"
+    }
+})
+
 @app.route('/')
 def index():
     services = Service.query.all()
     carousel_images = Media.query.filter_by(usage='carousel').all()
     hero_image = Media.query.filter_by(usage='hero').first()
     return render_template('index.html',
-                          services=services,
-                          carousel_images=carousel_images,
-                          hero_image=hero_image)
+                           services=services,
+                           carousel_images=carousel_images,
+                           hero_image=hero_image)
 
 @app.route('/services')
 def services():
@@ -42,18 +55,14 @@ def booking():
     message = request.form.get('message')
     if name and email and phone and date and time and service_type:
         booking = Booking(
-            name=name,
-            email=email,
-            phone=phone,
+            name=name, email=email, phone=phone,
             date=datetime.strptime(date, '%Y-%m-%d').date(),
-            time=time,
-            service_type=service_type,
-            message=message
+            time=time, service_type=service_type, message=message
         )
         db.session.add(booking)
         db.session.commit()
         flash('Бронирование успешно отправлено!', 'success')
-    return redirect(url_for('index'))
+        return redirect(url_for('index'))
 
 @app.route('/contact', methods=['POST'])
 def contact():
@@ -66,9 +75,106 @@ def contact():
         db.session.add(msg)
         db.session.commit()
         flash('Сообщение отправлено!', 'success')
-    return redirect(url_for('index'))
+        return redirect(url_for('index'))
 
-# ---------------- Admin Routes ----------------
+# ---------------- 🔹 SWAGGER API Эндпоинты ----------------
+@app.route('/api/services', methods=['GET'])
+def api_get_services():
+    """
+    Получить список всех услуг
+    ---
+    responses:
+      200:
+        description: Массив услуг
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              title:
+                type: string
+              short_desc:
+                type: string
+              long_desc:
+                type: string
+              icon:
+                type: string
+    """
+    services = Service.query.all()
+    return jsonify([{
+        'id': s.id, 'title': s.title, 'short_desc': s.short_desc,
+        'long_desc': s.long_desc, 'icon': s.icon
+    } for s in services])
+
+@app.route('/api/bookings', methods=['GET'])
+def api_get_bookings():
+    """
+    Получить все бронирования
+    ---
+    responses:
+      200:
+        description: Массив бронирований
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              email:
+                type: string
+              phone:
+                type: string
+              date:
+                type: string
+                format: date
+              service_type:
+                type: string
+              created_at:
+                type: string
+    """
+    bookings = Booking.query.order_by(Booking.created_at.desc()).all()
+    return jsonify([{
+        'id': b.id, 'name': b.name, 'email': b.email, 'phone': b.phone,
+        'date': b.date.isoformat(), 'service_type': b.service_type,
+        'created_at': b.created_at.isoformat()
+    } for b in bookings])
+
+@app.route('/api/media', methods=['GET'])
+def api_get_media():
+    """
+    Получить список загруженных изображений
+    ---
+    responses:
+      200:
+        description: Массив медиафайлов
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              filename:
+                type: string
+              alt_text:
+                type: string
+              usage:
+                type: string
+              url:
+                type: string
+    """
+    media = Media.query.order_by(Media.created_at.desc()).all()
+    return jsonify([{
+        'id': m.id, 'filename': m.filename, 'alt_text': m.alt_text,
+        'usage': m.usage, 'url': m.url
+    } for m in media])
+
+# ---------------- Админ-маршруты ----------------
 @app.route('/admin')
 def admin_dashboard():
     return redirect(url_for('admin_services'))
@@ -151,36 +257,20 @@ def admin_contacts():
     messages = ContactMessage.query.order_by(ContactMessage.created_at.desc()).all()
     return render_template('admin/contacts.html', messages=messages)
 
-# ---------------- Init DB ----------------
+# ---------------- Инициализация БД ----------------
 with app.app_context():
     db.create_all()
     if Service.query.count() == 0:
-        db.session.add(Service(
-            title="Звукозапись",
-            short_desc="Профессиональная запись вокала и инструментов в акустически подготовленном помещении.",
-            long_desc="...",
-            icon="fa-microphone"
-        ))
-        db.session.add(Service(
-            title="Сведение",
-            short_desc="Профессиональное сведение треков для идеального баланса.",
-            long_desc="...",
-            icon="fa-sliders-h"
-        ))
-        db.session.add(Service(
-            title="Мастеринг",
-            short_desc="Финальная обработка трека для выпуска на всех платформах.",
-            long_desc="...",
-            icon="fa-wave-square"
-        ))
-        db.session.commit()
-
-    if Media.query.count() == 0:
-        db.session.add(Media(filename="studio_1.jpg", alt_text="Основная студия", usage="carousel"))
-        db.session.add(Media(filename="control_room.jpg", alt_text="Контрольная комната", usage="carousel"))
+        db.session.add_all([
+            Service(title="Звукозапись", short_desc="Профессиональная запись вокала и инструментов...", long_desc="...", icon="fa-microphone"),
+            Service(title="Сведение", short_desc="Профессиональное сведение треков для идеального баланса.", long_desc="...", icon="fa-sliders-h"),
+            Service(title="Мастеринг", short_desc="Финальная обработка трека для выпуска на всех платформах.", long_desc="...", icon="fa-wave-square")
+        ])
+        db.session.add_all([
+            Media(filename="studio_1.jpg", alt_text="Основная студия", usage="carousel"),
+            Media(filename="control_room.jpg", alt_text="Контрольная комната", usage="carousel")
+        ])
         db.session.commit()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
-
-
+    app.run(debug=True)
