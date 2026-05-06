@@ -273,4 +273,5 @@ with app.app_context():
         db.session.commit()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    if os.environ.get('RENDER') != 'true':
+        app.run(debug=True, host='127.0.0.1', port=5000)
